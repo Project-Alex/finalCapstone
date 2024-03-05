@@ -1,11 +1,11 @@
 # Task Manager  
   
-## Project Description:  
+### Project Description:  
 This project is a generic task manager application to
 allow a user to manage different tasks for a shared project, company,
 or anything where single/multiple people may wish to track  
   
-## Features:
+### Features:
 - login
 - add new users
 - add new tasks
@@ -20,5 +20,5 @@ or anything where single/multiple people may wish to track
 - generate to new files: breakdowns of completed, incomplete, and overdue tasks
 - display statistics to admin account only
 
-## Installation:
+### Installation:
 Simply run the task_manager.py file and follow the instructions
