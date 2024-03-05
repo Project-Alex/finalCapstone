@@ -1,0 +1,9 @@
+admin;Add functionality to task manager;Add additional options and refactor the code.;2022-12-01;2022-11-22;No
+GaryP;Add function Q;Q needs implementing;2024-05-08;2024-02-21;No
+GaryP;Learn C#;Get started ASAP;2024-08-13;2024-03-10;No
+MarkF;Subtract;Do some maths;2021-03-01;2024-02-01;Yes
+RogerT;Remove it;Remove extra users;2021-01-01;2024-02-26;No
+TomG;Add users;Add more users;2024-12-12;2024-01-01;Yes
+GaryP;New Tasks to add;Add more tasks;2021-03-03;2024-02-27;No
+LarryD;Delete all the tasks;Just do the title!;2020-02-02;2024-02-27;No
+1;Dummy Task;Placeholder text;2023-04-03;2024-02-28;No
