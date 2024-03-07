@@ -2,8 +2,6 @@
 # 1. Use the following username and password to access the admin rights 
 # username: admin
 # password: password
-# 2. Ensure you open the whole folder for this task in VS Code otherwise the 
-# program will look in your root directory for the text files.
 
 #=====importing libraries===========
 import os
@@ -15,14 +13,14 @@ DSF = "%Y-%m-%d"
 def task_list_to_file():
     with open("tasks.txt", "w") as task_file:
         task_list_to_write = []
-        for t in task_list:
+        for task in task_list:
             str_attrs = [
-                t['username'],
-                t['title'],
-                t['description'],
-                t['due_date'].strftime(DSF),
-                t['assigned_date'].strftime(DSF),
-                "Yes" if t['completed'] else "No"
+                task['username'],
+                task['title'],
+                task['description'],
+                task['due_date'].strftime(DSF),
+                task['assigned_date'].strftime(DSF),
+                "Yes" if task['completed'] else "No"
             ]
             task_list_to_write.append(";".join(str_attrs))
         task_file.write("\n".join(task_list_to_write))
@@ -82,13 +80,12 @@ def add_task():
     '''
     
     # Username input and validation  
-    username_valid = False
-    while not username_valid:
+    while True:
         task_username = input("Name of person assigned to task: ")
         if task_username not in username_password.keys():
             print("User does not exist. Please enter a valid username")
         else:
-            username_valid = True
+            break
         
     task_title = input("Title of Task: ")
     task_description = input("Description of Task: ")
@@ -121,14 +118,14 @@ def add_task():
     # Write new task to file
     with open("tasks.txt", "w") as task_file:
         task_list_to_write = []
-        for t in task_list:
+        for task in task_list:
             str_attrs = [
-                t['username'],
-                t['title'],
-                t['description'],
-                t['due_date'].strftime(DSF),
-                t['assigned_date'].strftime(DSF),
-                "Yes" if t['completed'] else "No"
+                task['username'],
+                task['title'],
+                task['description'],
+                task['due_date'].strftime(DSF),
+                task['assigned_date'].strftime(DSF),
+                "Yes" if task['completed'] else "No"
             ]
             task_list_to_write.append(";".join(str_attrs))
         task_file.write("\n".join(task_list_to_write))
@@ -139,19 +136,19 @@ def add_task():
 
 def view_all():
     ''' 
-    Reads the task from task.txt file and prints to the console in the 
+    Reads the tasks from task.txt file and prints to the console in the 
     format of Output 2 presented in the task pdf (i.e. includes spacing
     and labelling) 
     '''
     for t in task_list:
-        disp_str  = f"{dline}\n"
+        disp_str  = f"{d_line}\n"
         disp_str += f"Task:{tab*2}\t{t['title']}\n"
         disp_str += f"Assigned to:{tab*2}{t['username']}\n"
         disp_str += f"Date Assigned:{tab*2}"
         disp_str += f"{t['assigned_date'].strftime(DSF)}\n"
-        disp_str += f"Due Date:{tab*2}{t['due_date'].strftime(DSF)}\n"
+        disp_str += f"Due Date:{tab*2}{t['due_date'].strftime(DSF)}\n\n"
         disp_str += f"Task Description:\n"
-        disp_str += f"{dline2}\n{t['description']}\n"
+        disp_str += f"{d_line2}\n{t['description']}\n"
         print(disp_str)
 
 
@@ -171,20 +168,21 @@ def view_mine():
             count_list = []
             for counter, t in enumerate(task_list):
                 if t['username'] == curr_user:
-                    disp_str  = f"{dline}\n"
+                    disp_str  = f"{d_line}\n"
                     disp_str += f"Task:{tab*2}\t{t['title']}\n"
                     disp_str += f"Assigned to:{tab*2}{t['username']}\n"
                     disp_str += f"Date Assigned:{tab*2}"
                     disp_str += f"{t['assigned_date'].strftime(DSF)}\n"
                     disp_str += f"Due Date:{tab*2}"
-                    disp_str += f"{t['due_date'].strftime(DSF)}\n"
+                    disp_str += f"{t['due_date'].strftime(DSF)}\n\n"
                     disp_str += f"Task Description:\n"
-                    disp_str += f"{dline2}\n{t['description']}\n"
-                    print(f"{dline}\nTask no.:{tab*2}{counter}\n{disp_str}")
+                    disp_str += f"{d_line2}\n{t['description']}\n"
+                    print(f"{d_line}\nTask no.:{tab*2}{counter}\n{disp_str}")
                     count_list.append(counter)
             
             try:
-                edit_mark_task = input(f"Enter corresponding number for task {count_list}:\n"
+                edit_mark_task = input("If you wish to edit a task\n"
+                                       f"Please enter corresponding number {count_list}:\n"
                                        "Or to go back, enter [-1]: ")
                 os.system('cls')
                 
@@ -197,11 +195,19 @@ def view_mine():
                     vm_menu = False
                     os.system('cls')
                     break
+
+                if edit_mark_task not in count_list:
+                    raise TypeError
                 
                 # Test if valid index within try/except block
                 task_list[edit_mark_task]
                 edit_mark_menu = True
                 break
+
+            except TypeError:
+                os.system('cls')
+                print(f"You have selected another user's task.")
+                print(f"Please select from the following: {count_list}")
             
             except Exception:
                 print("Invalid entry, please try again")
@@ -212,7 +218,7 @@ def view_mine():
                               "2. Mark task as complete\n"
                               "3. Return to main menu: ")
 
-            #=============== Edit Task ===============#
+            #=============== Edit Task ===================================#
             if edit_mark == '1':
                 task_list[edit_mark_task]["username"] = input(
                     "Please enter new username for task: ")
@@ -235,14 +241,14 @@ def view_mine():
                         print("Invalid datetime format. "
                               "Please use the format specified")
 
-            #=============== Mark as complete ===============#            
+            #=============== Mark as complete ===========================#            
             elif edit_mark == '2':
                 task_list[edit_mark_task]["completed"] = "Yes"
 
                 task_list_to_file()
                 os.system('cls')
             
-            #=============== Main Menu ===============#
+            #=============== Main Menu ===================================#
             elif edit_mark == '3':
                 edit_mark_menu = False
                 vm_menu = False
@@ -294,9 +300,9 @@ def display_statistics():
         read_tasks = [t for t in read_tasks if t != ""]
 
     # Display statistics
-    print(f"{dline}\n"
-          f"Number of users: \t\t {read_users}\n"
-          f"Number of tasks: \t\t {read_tasks}")
+    print(f"{d_line}\n"
+          f"Number of users: \t\t {len(read_users)}\n"
+          f"Number of tasks: \t\t {len(read_tasks)}")
     
 
 def generate_reports():
@@ -333,7 +339,7 @@ def generate_reports():
 
         task_list.append(current_task)
 
-    # Task overview ============================================================
+    # Task overview ======================================================#
 
     # Number of tasks
     total_tasks = len(task_list)
@@ -368,22 +374,22 @@ def generate_reports():
 
     # Write to file formatted
     with open("task_overview.txt", "w") as file:
-        file.write(f"{dline}\n\n{tab*2}"
-                   f"#=#=#=#=#= Task Overview =#=#=#=#=#\n\n"
-                   f"{dline}\n"
+        file.write(f"{d_line}\n\n{tab*3}\t"
+                   f"Task Overview\n\n"
+                   f"{d_line}\n"
                    f"Total number of tasks:{tab*4}{total_tasks}\n"
-                   f"{dline2}\n"
+                   f"{d_line2}\n"
                    f"Completed tasks:\t{tab*4}{finished_tasks}\n"
                    f"Incomplete tasks:\t{tab*4}{unfinished_tasks}\n"
                    f"Incomplete & overdue tasks:\t{tab*3}{overdue_tasks}\n"
-                   f"{dline2}\n"
+                   f"{d_line2}\n"
                    f"% of tasks incomplete:"
                    f"{tab*4}{int(incomplete_percent)}%\n"
                    f"% of tasks incomplete & overdue:\t"
                    f"{tab*2}{overdue_percent}%\n"
-                   f"{dline}")
+                   f"{d_line}")
     
-    # User overview ==========================================================
+    # User overview ======================================================#
 
     # Read and store user.txt data
     with open("user.txt", "r") as file:
@@ -462,37 +468,35 @@ def generate_reports():
         user_count += 1
 
     # Build string for user_overview output
-    user_print = (f"{dline}\n\n{tab*2}"
-                  f"#=#=#=#=#= User Overview =#=#=#=#=#\n\n"
-                  f"{dline}\nTotal Registered Users:"
-                  f"{tab*4}{total_users}\n{dline}\n\n")
+    user_print = (f"{d_line}\n\n{tab*3}\t"
+                  f"User Overview\n\n"
+                  f"{d_line}\nTotal registered users:"
+                  f"{tab*4}{total_users}\n"
+                  f"{d_line}\nTotal number of tasks:"
+                  f"{tab*4}{total_tasks}\n{d_line}\n\n")
     
-    # Iterate through lists using counter
-    counter = 0
-    for x in user_list:
-        user_print += f"\nUsername:\t{tab*5}{x}\n{dline}\n"
+    # Iterate through lists
+    for counter, x in enumerate(user_list):
+        user_print += f"\nUsername:\t{tab*5}{x}\n{d_line}\n"
         user_print += f"Total tasks assigned to user:{tab*3}"
-        user_print += f"{user_task_list[counter]}\n{dline2}\n"
+        user_print += f"{user_task_list[counter]}\n{d_line2}\n"
         user_print += f"% of total tasks assigned to user:\t{tab*2}"
-        user_print += f"{total_percent[counter]}%\n{dline2}\n"
+        user_print += f"{total_percent[counter]}%\n{d_line2}\n"
         user_print += f"% of user's tasks completed:{tab*3}"
-        user_print += f"{total_complete_percent[counter]}%\n{dline2}\n"
+        user_print += f"{total_complete_percent[counter]}%\n{d_line2}\n"
         user_print += f"% of user's tasks incomplete:{tab*3}"
-        user_print += f"{total_incomplete_percent[counter]}%\n{dline2}\n"
+        user_print += f"{total_incomplete_percent[counter]}%\n{d_line2}\n"
         user_print += f"% of user's tasks incomplete and overdue:{tab}\t"
-        user_print += f"{total_overdue_percent[counter]}%\n{dline}\n\n"
-        counter += 1
+        user_print += f"{total_overdue_percent[counter]}%\n{d_line}\n\n"
 
     # Write to file
     with open("user_overview.txt", "w") as file:
         file.write(user_print)
-     
     print("Successfully generated reports.")
 
-
 # Variables to display outputs clearly to user
-dline = "="*70
-dline2 = "-"*70
+d_line = "=-"*35+'='
+d_line2 = "-"*71
 tab = "\t"*2
 
 # Create tasks.txt if it doesn't exist
@@ -565,9 +569,9 @@ while not logged_in:
     Clears terminal after input for readability 
     '''
 while logged_in:
-    menu = input(f"{dline}\n"
+    menu = input(f"{d_line}\n"
                  "Select one of the following options below:\n"
-                 f"{dline}\n"
+                 f"{d_line}\n"
                  "r  -\tRegister a new user\n"
                  "a  -\tAdd a new task\n"
                  "va -\tView all tasks\n"
@@ -575,7 +579,7 @@ while logged_in:
                  "gr -\tGenerate reports\n"
                  "ds -\tDisplay task statistics\n"
                  "e  -\tExit Task Manager\n"
-                 f"{dline}\n"
+                 f"{d_line}\n"
                  ": ").lower()
     
     os.system('cls')
@@ -605,11 +609,7 @@ while logged_in:
         if curr_user == 'admin':
             display_statistics()
         else:
-            print(f"{dline}\nData restricted to admin user only!")  
-
-    # # ds - If user is not admin, displays relevent error message
-    # elif menu == 'ds' and not curr_user == 'admin':
-    #     print(f"{dline}\nData restricted to admin user only!")   
+            print(f"{d_line}\nData restricted to admin user only!")  
 
     # e - Exit program
     elif menu == 'e':

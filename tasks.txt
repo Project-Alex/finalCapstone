@@ -6,4 +6,5 @@ RogerT;Remove it;Remove extra users;2021-01-01;2024-02-26;No
 TomG;Add users;Add more users;2024-12-12;2024-01-01;Yes
 GaryP;New Tasks to add;Add more tasks;2021-03-03;2024-02-27;No
 LarryD;Delete all the tasks;Just do the title!;2020-02-02;2024-02-27;No
-1;Dummy Task;Placeholder text;2023-04-03;2024-02-28;No
+1;Dummy Task;Placeholder text;2029-05-05;2024-02-28;No
+GregoryP;Refactor code;Refactor all the code;2033-04-02;2024-03-07;No

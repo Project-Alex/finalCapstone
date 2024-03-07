@@ -1,7 +1,0 @@
-shorten lines to < 80 </
-
-fix "overdue" math errors
-
-change vm from enumerate to counter
-
-check task_list_to_file works
