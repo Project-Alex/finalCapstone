@@ -1,7 +1,8 @@
-# Notes: 
-# 1. Use the following username and password to access the admin rights 
-# username: admin
-# password: password
+# Default login
+'''
+username: admin
+password: password
+'''
 
 #=====importing libraries===========
 import os
@@ -617,4 +618,3 @@ while logged_in:
     # Print error message if input is not a menu choice
     else:
         print("You have made a wrong choice, please try again")
-        
