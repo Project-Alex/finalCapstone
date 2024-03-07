@@ -21,4 +21,11 @@ or anything where single/multiple people may wish to track
 - display statistics to admin account only
 
 ### Installation:
-Simply run the task_manager.py file and follow the instructions
+Simply run the task_manager.py file and follow the instructions!  
+
+Default login is "admin/password".
+  
+user.txt and tasks.txt contain existing users and tasks.  
+Store in the same folder as task_manager.py to use/view them.  
+    
+If user.txt and tasks.txt are not present, the program will generate them fresh.

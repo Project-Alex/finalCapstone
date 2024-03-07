@@ -611,7 +611,7 @@ while logged_in:
 
     # e - Exit program
     elif menu == 'e':
-        print('Goodbye!!!')
+        print('Thank you for using the Task Manager!\n\nGoodbye!')
         exit()
 
     # Print error message if input is not a menu choice
