@@ -550,15 +550,13 @@ for user in user_data:
 # Requests inputs for username/password and checks if correct
 logged_in = False
 while not logged_in:
-    print("Please enter your username and password to login.")
+    print("Please enter your username and password to login:")
     curr_user = input("Username: ")
     curr_pass = input("Password: ")
     if curr_user not in username_password.keys():
         print("User does not exist")
-        continue
     elif username_password[curr_user] != curr_pass:
         print("Wrong password")
-        continue
     else:
         print("\nLogin Successful!")
         logged_in = True
